@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Motorcycle Parts | Login & Sign Up</title>
+  <link rel="stylesheet" href="rodney.css">
+</head>
+<body>
+  <div class="shape shape1"></div>
+  <div class="shape shape2"></div>
+
+  <div class="container">
+    <!-- LEFT SIDE – FULL HEIGHT SOLID PANEL -->
+      <a href="index.html" class="back-btn">
+        ← Back to Home
+      </a>
+
+    <div class="left-side">
+      <div class="brand">
+        <h1>Arcega-<br>Pangilinan<br>Cycle Partsz</h1>
+        <p>Your trusted source for premium motorcycle parts and accessories.</p>
+      </div>
+      
+      <div class="features">
+
+        <!-- ICON 1: MOTORCYCLE -->
+        <div class="feature-item">
+          <div class="feature-icon">
+            <img src="motorbike.png" alt="Motorcycle">
+          </div>
+          <div class="feature-text">Wide selection of quality parts</div>
+        </div>
+
+        <!-- ICON 2: FAST DELIVERY (clock) -->
+        <div class="feature-item">
+          <div class="feature-icon">
+            <img src="rush.png" alt="Fast Delivery">
+          </div>
+          <div class="feature-text">Fast and reliable delivery</div>
+        </div>
+
+        <!-- ICON 3: WARRANTY (shield) -->
+        <div class="feature-item">
+          <div class="feature-icon">
+            <img src="verified.png" alt="Warranty">
+          </div>
+          <div class="feature-text">Warranty on all products</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE – FORM (unchanged) -->
+    <div class="right-side">
+      <div id="form-content" class="form-content">
+        <!-- === SIGN-UP FORM === -->
+        <form id="signup-form" action="signup.php" method="POST">
+          <div class="form-header">
+            <h2>Create Account</h2>
+            <p>Join us and get access to exclusive deals</p>
+          </div>
+
+          <div class="form-group">
+            <label for="firstname">First name</label>
+            <input id="firstname" name="firstname" type="text" placeholder="" required>
+          </div>
+
+          <div class="form-group">
+            <label for="lastname">Last name</label>
+            <input id="lastname" name="lastname" type="text" placeholder="" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="" required>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" placeholder="" required>
+          </div>
+
+          <button type="submit">Create account</button>
+
+          <div class="toggle">
+            Already have an account? <a href="#" onclick="toggleToLogin(event)">Login</a>
+          </div>
+
+          <div class="divider">or continue with</div>
+          <div class="social-buttons">
+            <a href="#" class="social-btn">
+              <img src="https://img.icons8.com/color/48/000000/facebook.png" alt="Facebook"> Facebook
+            </a>
+            <a href="#" class="social-btn">
+              <img src="https://img.icons8.com/color/48/000000/gmail-new.png" alt="Gmail"> Gmail
+            </a>
+          </div>
+        </form>
+
+        <!-- === LOGIN FORM === -->
+        <form id="login-form" action="login.php" method="POST" style="display:none;">
+          <div class="form-header">
+            <h2>Welcome Back</h2>
+            <p>Login to access your account</p>
+          </div>
+
+          <div class="form-group">
+            <label for="login-email">Email</label>
+            <input id="login-email" name="email" type="email" placeholder="you@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input id="login-password" name="password" type="password" placeholder="••••••••" required>
+          </div>
+
+          <button type="submit">Login</button>
+
+          <div class="toggle">
+            Don't have an account? <a href="#" onclick="toggleToSignUp(event)">Sign up</a>
+          </div>
+
+          <div class="divider">or continue with</div>
+          <div class="social-buttons">
+            <a href="#" class="social-btn">
+              <img src="https://img.icons8.com/color/48/000000/facebook.png" alt="Facebook"> Facebook
+            </a>
+            <a href="#" class="social-btn">
+              <img src="https://img.icons8.com/color/48/000000/gmail-new.png" alt="Gmail"> Gmail
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript toggle (unchanged) -->
+  <script>
+    function toggleToLogin(e){e.preventDefault();document.getElementById("signup-form").style.display="none";document.getElementById("login-form").style.display="block";}
+    function toggleToSignUp(e){e.preventDefault();document.getElementById("signup-form").style.display="block";document.getElementById("login-form").style.display="none";}
+  </script>
+</body>
+</html>

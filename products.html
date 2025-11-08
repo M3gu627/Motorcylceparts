@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Arcega-Pangilinan Cycle Partsz | Products</title>
+  <link rel="stylesheet" href="products.css">
+</head>
+<body>
+
+  <div class="shape shape1"></div>
+  <div class="shape shape2"></div>
+
+  <nav>
+    <div class="nav-container">
+      <a href="#" class="logo">Arcega-Pangilinan</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#" class="active">Products</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="rodney.html" style="color:#bec176;">Login</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="content">
+    <div class="hero">
+      <h1>Our Products</h1>
+      <p>Browse our extensive collection of motorcycle parts</p>
+    </div>
+
+    <div class="controls-section">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search products...">
+      </div>
+      <div class="sort-box">
+        <select id="sortSelect">
+          <option value="name-asc">Name (A-Z)</option>
+          <option value="name-desc">Name (Z-A)</option>
+          <option value="price-asc">Price (Low to High)</option>
+          <option value="price-desc">Price (High to Low)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="products-grid" id="productsGrid"></div>
+
+    <div class="pagination">
+      <button class="page-btn" id="prevBtn"></button>
+      <span class="page-info" id="pageInfo">Page 1 of 3</span>
+      <button class="page-btn" id="nextBtn">Next</button>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="productModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-close" id="closeModalBtn">x</span>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 Arcega-Pangilinan Cycle Partsz. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // YOUR PRODUCT DATA – IMAGES ARE EMPTY STRINGS
+    const allProducts = [
+      {id:1,name:"High-Performance Engine Kit",category:"Engine Parts",price:8500,image:"",description:"Complete engine rebuild kit with premium pistons, rings, and gaskets.",specs:{Brand:"ProRider",Warranty:"1 Year",Material:"Forged Aluminum"}},
+      {id:2,name:"Racing Brake Disc Set",category:"Brake Systems",price:4200,image:"",description:"Professional-grade floating brake discs.",specs:{Diameter:"320mm",Material:"Stainless Steel",Type:"Floating"}},
+      {id:3,name:"Premium Clutch Assembly",category:"Transmission Parts",price:3800,image:"",description:"Heavy-duty clutch kit.",specs:{Plates:"8",Springs:"Heavy Duty",Compatibility:"Universal"}},
+      {id:4,name:"LED Headlight Assembly",category:"Lighting",price:2100,image:"",description:"Ultra-bright LED headlight.",specs:{Lumens:"3000",Power:"35W",Color:"6000K"}},
+      {id:5,name:"Lithium Ion Battery",category:"Batteries",price:3500,image:"",description:"Lightweight high-performance battery.",specs:{Voltage:"12V",Capacity:"14Ah",Weight:"1.2kg"}},
+      {id:6,name:"Carbon Fiber Fairing Kit",category:"Body Parts",price:12500,image:"",description:"Lightweight carbon fiber fairings.",specs:{Material:"Carbon Fiber",Finish:"Gloss",Weight:"3.5kg"}},
+      {id:7,name:"Sport Exhaust System",category:"Exhaust",price:6800,image:"",description:"Full titanium exhaust.",specs:{Material:"Titanium",Sound:"95 dB",Power:"+5 HP"}},
+      {id:8,name:"Air Filter Performance Kit",category:"Engine Parts",price:1200,image:"",description:"High-flow reusable filter.",specs:{Type:"Cotton",Flow:"+25%",Washable:"Yes"}},
+      {id:9,name:"Chain & Sprocket Kit",category:"Transmission Parts",price:2800,image:"",description:"Gold chain + steel sprockets.",specs:{Chain:"520",Links:"120",Sprocket:"Steel"}},
+      {id:10,name:"Adjustable Suspension Kit",category:"Suspension",price:9500,image:"",description:"Fully adjustable suspension.",specs:{Travel:"120mm",Adjustments:"Comp/Rebound",Type:"Inverted"}},
+      {id:11,name:"Racing Brake Pads",category:"Brake Systems",price:1500,image:"",description:"Sintered metal pads.",specs:{Material:"Sintered",Temp:"800°C",Set:"Front/Rear"}},
+      {id:12,name:"Digital Speedometer",category:"Electronics",price:3200,image:"",description:"Color LCD with GPS.",specs:{Display:"LCD",GPS:"Yes",Functions:"15+"}},
+      {id:13,name:"Oil Cooler Kit",category:"Engine Parts",price:4500,image:"",description:"10-row oil cooler.",specs:{Rows:"10",Lines:"Braided",Mount:"Universal"}},
+      {id:14,name:"Sport Touring Seat",category:"Body Parts",price:3800,image:"",description:"Gel-padded seat.",specs:{Padding:"Gel",Cover:"Waterproof",Height:"Standard"}},
+      {id:15,name:"Turn Signal LED Set",category:"Lighting",price:850,image:"",description:"Sequential LED signals.",specs:{LEDs:"12",Pattern:"Sequential",Color:"Amber"}},
+      {id:16,name:"Radiator Performance",category:"Cooling",price:5200,image:"",description:"Triple-core radiator.",specs:{Cores:"3",Material:"Aluminum",Capacity:"+40%"}},
+      {id:17,name:"Throttle Body Kit",category:"Engine Parts",price:7200,image:"",description:"52mm throttle body.",specs:{Bore:"52mm",Flow:"+30%",Material:"Billet"}},
+      {id:18,name:"Aluminum Wheel Set",category:"Wheels",price:15800,image:"",description:"Forged aluminum wheels.",specs:{Front:"3.5x17",Rear:"5.5x17",Weight:"7kg"}},
+      {id:19,name:"Fork Oil Upgrade",category:"Suspension",price:650,image:"",description:"10W synthetic oil.",specs:{Viscosity:"10W",Type:"Synthetic",Volume:"1L"}},
+      {id:20,name:"Quick Shifter Kit",category:"Electronics",price:4800,image:"",description:"Up-shift without clutch.",specs:{Type:"Strain",Direction:"Up",Compatibility:"Universal"}},
+      {id:21,name:"Steering Damper",category:"Suspension",price:5500,image:"",description:"16-click damper.",specs:{Type:"Hydraulic",Clicks:"16",Mount:"Universal"}},
+      {id:22,name:"Ignition Coil Set",category:"Electronics",price:2400,image:"",description:"40,000V coils.",specs:{Output:"40kV",Type:"Direct",Set:"4pcs"}},
+      {id:23,name:"Rear Swingarm",category:"Suspension",price:8900,image:"",description:"+2 inch swingarm.",specs:{Material:"6061",Extension:"+2in",Finish:"Anodized"}},
+      {id:24,name:"Fuel Pump Module",category:"Engine Parts",price:3900,image:"",description:"255 LPH pump.",specs:{Flow:"255 LPH",Pressure:"3.5 Bar",Filter:"Yes"}}
+    ];
+
+    let currentPage = 1;
+    const itemsPerPage = 8;
+    let filteredProducts = [...allProducts];
+
+    function renderProducts() {
+      const start = (currentPage - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+      const productsToShow = filteredProducts.slice(start, end);
+
+      document.getElementById('productsGrid').innerHTML = productsToShow.map(p => `
+        <div class="product-card" onclick="openModal(${p.id})">
+          <div class="product-image">
+            <img src="${p.image || 'placeholder.jpg'}" alt="${p.name}" loading="lazy">
+            ${!p.image ? '<div class="img-placeholder">Add Image</div>' : ''}
+          </div>
+          <div class="product-info">
+            <h3>${p.name}</h3>
+            <p>${p.category}</p>
+            <div class="product-price">₱${p.price.toLocaleString()}</div>
+            <button class="btn btn-primary">View Details</button>
+          </div>
+        </div>
+      `).join('');
+
+      updatePagination();
+    }
+
+    function updatePagination() {
+      const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+      document.getElementById('pageInfo').textContent = `Page ${currentPage} of ${totalPages}`;
+      document.getElementById('prevBtn').disabled = currentPage === 1;
+      document.getElementById('nextBtn').disabled = currentPage === totalPages;
+    }
+
+    function changePage(delta) {
+      const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+      const newPage = currentPage + delta;
+      if (newPage < 1 || newPage > totalPages) return;
+      currentPage = newPage;
+      renderProducts();
+      document.querySelector('.controls-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function openModal(id) {
+      const product = allProducts.find(p => p.id === id);
+      document.getElementById('modalBody').innerHTML = `
+        <div class="modal-image">
+          <img src="${product.image || 'placeholder.jpg'}" alt="${product.name}">
+          ${!product.image ? '<div class="img-placeholder">Add Image</div>' : ''}
+        </div>
+        <div class="modal-details">
+          <h2>${product.name}</h2>
+          <div class="price">₱${product.price.toLocaleString()}</div>
+          <div class="description">${product.description}</div>
+          <div class="specs">
+            <h3>Specifications</h3>
+            ${Object.entries(product.specs).map(([k,v])=>`
+              <div class="spec-item">
+                <span class="spec-label">${k}:</span>
+                <span>${v}</span>
+              </div>
+            `).join('')}
+          </div>
+          <button class="btn btn-primary" style="margin-top:30px;">Add to Cart</button>
+        </div>
+      `;
+      document.getElementById('productModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('productModal').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Event Listeners
+    document.getElementById('prevBtn').onclick = () => changePage(-1);
+    document.getElementById('nextBtn').onclick = () => changePage(1);
+    document.getElementById('closeModalBtn').onclick = closeModal;
+    document.getElementById('productModal').addEventListener('click', e => {
+      if (e.target.id === 'productModal') closeModal();
+    });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    document.getElementById('searchInput').addEventListener('input', e => {
+      const term = e.target.value.toLowerCase();
+      filteredProducts = allProducts.filter(p =>
+        p.name.toLowerCase().includes(term) ||
+        p.category.toLowerCase().includes(term)
+      );
+      currentPage = 1;
+      renderProducts();
+    });
+
+    document.getElementById('sortSelect').addEventListener('change', e => {
+      const val = e.target.value;
+      const sorters = {
+        'name-asc' : (a,b) => a.name.localeCompare(b.name),
+        'name-desc': (a,b) => b.name.localeCompare(a.name),
+        'price-asc': (a,b) => a.price - b.price,
+        'price-desc': (a,b) => b.price - a.price
+      };
+      filteredProducts.sort(sorters[val] || (() => 0));
+      currentPage = 1;
+      renderProducts();
+    });
+
+    renderProducts();
+  </script>
+</body>
+</html>
